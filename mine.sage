@@ -1,3 +1,8 @@
+'''
+TODO: Go through and clean up
+      Is everything in here in use?
+'''
+
 def mine( goodperms, M, N, report=False):
     '''
     goodperms is the set of permutations satisfying some
