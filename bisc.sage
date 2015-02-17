@@ -13,14 +13,13 @@ load('../bisc/bisc_post_process.sage')
 '''
 1) Create the permutations to work with
 
-   To use one of the given examples, modify and uncomment the appropriate file
-   below
+   To use one of the given examples, modify the file below
 '''
 
 print '\n------------------------- Starting phase 1 -------------------------\n'
 print 'Creating a set of permutations to inspect \n'
 
-load('../permutation-sets/mesh_examples.sage')
+load('../permutation-sets/create_permutation_set.sage')
 
 # ------------------------------------------------------------------------------
 
@@ -36,7 +35,7 @@ load('../permutation-sets/mesh_examples.sage')
             Set to 1 if you want to call the single core version
 '''
 
-M      = 3
+M      = 4
 N      = Ng
 report = True
 cpus   = 1
