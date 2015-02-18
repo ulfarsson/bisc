@@ -1,3 +1,4 @@
+load("../pattern-avoidance/sub_functions.sage")
 '''
 TODO: Go through and clean up
       Is everything in here in use?

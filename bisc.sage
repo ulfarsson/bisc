@@ -7,6 +7,7 @@ load('../bisc/mine.sage')
 load('../bisc/forb.sage')
 load('../bisc/forb_subfunctions.sage')
 load('../bisc/bisc_post_process.sage')
+load('../bisc/bisc_smaller_bases.sage')
 
 # ------------------------------------------------------------------------------
 
@@ -27,7 +28,9 @@ load('../permutation-sets/create_permutation_set.sage')
 2) Run the mine algorithm on the permutations in A
 
    M      : The length of the longest patterns to search for
-   N      : The longest permutations in A to consider
+
+   Set by create_permutation_set.sage, but can be modified here
+   N      : The longest permutations in A to consider,
             Note that N should usually be Ng, the value used to create A
    report : Set to True if you want mine to tell you what it is doing
    cpus   : The number of cores to use
@@ -35,16 +38,16 @@ load('../permutation-sets/create_permutation_set.sage')
             Set to 1 if you want to call the single core version
 '''
 
-M      = 4
-N      = Ng
-report = True
-cpus   = 1
+M = 5
 
 print '\n------------------------- Starting phase 2 -------------------------\n'
 print 'Running mine on the set of permutations \n'
 
 # Here is where mine (or mineParallel) is run. Note that A is the set of
 # permutations that was created in step 1)
+
+N = Ng
+
 if cpus == 1:
 	ci, goodpatts = mine(A, M, N, report)
 else:
@@ -85,8 +88,65 @@ print 'Describing what was found \n'
 
 describe_bisc_output(SG)
 
-print '\nNow displaying the patterns \n'
+print '\nNow displaying the patterns\n'
 dfo = display_forb_output(SG)
 for mpat in dfo:
 	print show_mpat(mpat) + '\n'
+
+'''
+5) Run this to see if the output from forb actually describes the input
+permutations. (We use the permutations in B to do this, so make sure you have
+enough of those, by having Nb large)
+
+SG              : The output from forb
+L               : The longest permutations from B to use
+B               : The permutations created above, that do not satisfy the
+                  property under consideration
+stop_on_failure : If True then when a permutation in B that avoids the patterns
+                  is found we stop immediately
+                  If false we finish looking at permutations of that length and
+                  output them
+parallel        : If True then use more than one core
+ncpus           : If set to 0 and parallel=True then Sage will use all available
+                  cores. Otherwise pick the number of cores to use
+'''
+
+L               = Nb
+stop_on_failure = False
+parall          = False
+ncpus           = 7
+
+print '\n------------------------- Starting phase 5 -------------------------\n'
+print 'Checking if the compliment of the permutations contain at least one of'
+print 'the patterns that were found\n'
+
+val, avoiding_perms = patterns_suffice( SG, L, B, stop_on_failure, parall, ncpus )
+
+'''
+6) The output from forb is sometimes redundant, i.e., some patterns are not
+really necessary. Run this to see what will work as bases
+
+SG              : The output from forb
+2nd parameter   : The longest permutations from B to use
+bm              : The longest patterns from SG to use
+4th parameter   : The permutations created above, that do not satisfy the property under consideration
+M               : The same M as above. Don't change
+report          : Set to true if you want to know what's going on
+detailed_report : Set to true if you want to know everything that's going on
+limit_monitors  : Whether to only consider bases of a given maximum length. Set to 0 if you want to allow any length
+'''
+
+if val:
+	bm              = Nb
+	report          = True
+	detailed_report = False
+	limit_monitors  = 0
+
+	print '\n------------------------- Starting phase 6 -------------------------\n'
+	print 'Checking to see if subsets of the patterns found work as bases\n'
+
+	bases, dict_numbs_to_patts = clean_up( SG, min(SG.keys())+1, bm, min(SG.keys()), M, report, detailed_report, limit_monitors )
+
+	print '\nThe lengths of the bases that were found are'
+	print sorted(map(lambda x : len(x), bases))
 

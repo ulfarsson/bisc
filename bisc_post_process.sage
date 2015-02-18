@@ -1,3 +1,4 @@
+load("../pattern-avoidance/mesh_patterns.sage")
 '''
 TODO: Go through and clean up
       Is everything in here in use?
@@ -48,10 +49,10 @@ to describe the permutations in the dictionary D up to length L
 There are two subfunctions below
 
 '''
-def patterns_suffice(SG,L,D,stop_on_failure=False,parallel=False,ncpus=0):
-    
+def patterns_suffice(SG, L, D, stop_on_failure=False, parallel=False, ncpus=0):
+
     for n in [1..L]:
-    
+
         if n not in D.keys():
             print 'The dictionary does not contain permutations of length ' + str(n)
             break
@@ -65,16 +66,16 @@ def patterns_suffice(SG,L,D,stop_on_failure=False,parallel=False,ncpus=0):
 
                 b_avoids = avoids_mpats_many_shadings(b,SG)
 
-                if b_avoids and stop_on_failure:
+                if b_avoids:
+                    if stop_on_failure:
+                        print "!!!! The permutation " + str(b) + " avoids the patterns !!!!"
+                        return False, [b]
+                    else:
+                        avoiding_perms.append(b)
 
-                    print "The permutation " + str(b) + " avoids the patterns"
-                    return []
-                else:
-                    avoiding_perms.append(b)
-
-            if D[n] and b_avoids:
-                print "There are permutations of length " + str(n) + " that avoid the patterns"
-                return avoiding_perms
+            if D[n] and avoiding_perms:
+                print "!!!! There are permutations of length " + str(n) + " that avoid the patterns !!!!"
+                return False, avoiding_perms
 
         else:
             if not ncpus:
@@ -86,15 +87,18 @@ def patterns_suffice(SG,L,D,stop_on_failure=False,parallel=False,ncpus=0):
             if stop_on_failure:
                 some_perm_fails = not all(map(lambda x: x[1], permlist_contains_patts_w_shadings(sliced)))
                 if some_perm_fails:
-                    print "There are permutations of length " + str(n) + " that avoid the patterns"
-                    return []
+                    print "!!!! There are permutations of length " + str(n) + " that avoid the patterns !!!!"
+                    return False, []
 
             else:
                 avoiding_perms = reduce( lambda l1,l2 : l1+l2, map(lambda x: x[1], perms_avoiding_patts_w_shadings(sliced)))
 
                 if avoiding_perms:
-                    print "There are permutations of length " + str(n) + " that avoid the patterns"
-                    return avoiding_perms
+                    print "!!!! There are permutations of length " + str(n) + " that avoid the patterns !!!!"
+                    return False, avoiding_perms
+
+    print "There are no permutations in the complement that avoid the found patterns"
+    return True, []
 
 
 def sl(lst,i):
