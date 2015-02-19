@@ -27,18 +27,18 @@ load('../permutation-sets/create_permutation_set.sage')
 '''
 2) Run the mine algorithm on the permutations in A
 
-   M      : The length of the longest patterns to search for
+   Mg     : The length of the longest patterns to search for
 
    Set by create_permutation_set.sage, but can be modified here
    N      : The longest permutations in A to consider,
             Note that N should usually be Ng, the value used to create A
-   report : Set to True if you want mine to tell you what it is doing
+   report : Set to True to get status messages
    cpus   : The number of cores to use
             Set to 0 if you want Sage to determine the number of available cores
             Set to 1 if you want to call the single core version
 '''
 
-M = 5
+Mg = 4
 
 print '\n------------------------- Starting phase 2 -------------------------\n'
 print 'Running mine on the set of permutations \n'
@@ -49,33 +49,37 @@ print 'Running mine on the set of permutations \n'
 N = Ng
 
 if cpus == 1:
-	ci, goodpatts = mine(A, M, N, report)
+	ci, goodpatts = mine(A, Mg, N, report)
 else:
-    ci, goodpatts = mineParallel(A, M, N, report, cpus)
+    ci, goodpatts = mineParallel(A, Mg, N, report, cpus)
 
 # ------------------------------------------------------------------------------
 
 '''
 3) Run the forb algorithm on the output from mine and generate
-   patterns of length M, defined above
+   patterns of length Mb, usually equal to Mg
 
    You can change the parameters given below, but you usually don't want to
    unless you are debugging
 
    ci        : The interval created by mine
    goodpatts : The patterns found by mine
-   M         : The longest patterns to generate
-   report    : Set to True if you want forb to tell you what it is doing
+   Mb        : The longest patterns to generate
+   report    : Set to True to get status messages
    cpus      : The number of cores to use
+               Set to 0 if you want Sage to determine the number of available cores
+               Set to 1 if you want to call the single core version
 '''
 
 print '\n------------------------- Starting phase 3 -------------------------\n'
 print 'Running forb on the output from mine\n'
 
+Mb = Mg
+
 if cpus == 1:
-	SG = forb( ci, goodpatts, M, report )
+	SG = forb( ci, goodpatts, Mb, report )
 else:
-	SG = forbParallel( ci, goodpatts, M, report, cpus )
+	SG = forbParallel( ci, goodpatts, Mb, report, cpus )
 
 # ------------------------------------------------------------------------------
 
