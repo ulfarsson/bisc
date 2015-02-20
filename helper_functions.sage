@@ -176,3 +176,15 @@ def run_clean_up(SG, B, bm, M, limit_monitors=0, report=True, detailed_report=Fa
 
     return bases, dict_numbs_to_patts
 
+def show_me_basis(b, dict_numbs_to_patts):
+    '''
+    To see the patterns in a basis b
+
+    show_me_basis(b, dict_numbs_to_patts)
+    '''
+
+    print '\nDisplaying the patterns in the basis\n'
+    dfo = display_forb_output(SG)
+    for i in b:
+        print show_mpat(dict_numbs_to_patts[i]) + '\n'
+

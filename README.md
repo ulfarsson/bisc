@@ -6,7 +6,7 @@ The BiSC algorithm for discovering patterns avoided by a permutation set.
 The code depends on [Sage](http://www.sagemath.org),
 [pattern-avoidance](https://github.com/ulfarsson/pattern-avoidance) and
 [permutation-sets](https://github.com/ulfarsson/permutation-sets). Furthermore,
-it is assumed that the three repositories (`pattern-avoidance,
+it is assumed that the three repositories (`pattern-avoidance`,
 `permutation-sets` and `bisc`) are in the same folder.
 
 To get things started, navigate in a shell to the `bisc` repository and start
@@ -14,10 +14,11 @@ up sage. Type `%runfile helper_functions.sage` to load all the neccessary files.
 
 ### Creating a permutation set to investigate
 
-The repository x has many predefined examples you can use, they are all in the
-subfolder examples. If you want to look at West-2-stack-sortable permutations
-you will find them in the file examples/examples_sorting.sage. They are example
-nr. 2. Let's load those permutations up lenght 7:
+The repository `permutation-sets` has many predefined examples you can use,
+located in the subfolder examples. If you want to investigate
+West-2-stack-sortable permutations you will find them in the file
+examples/examples_sorting.sage. They are example nr. 2. Let's load those
+permutations up lenght 7:
 
 ```python
 A, B = create_example('sorting', 2, 7)
@@ -69,7 +70,7 @@ val, avoiding_perms = run_patterns_suffice(SG, 7, B)
 ```
 
 The output is `val`, which is a Boolean variable telling us whether there are
-any avoiding permutations in `B` up to length 7, while `avoiding_perms` will
+any avoiding permutations in `B` up to length 7, and `avoiding_perms` will
 store those permutations.
 
 ### Can we get away with less?
@@ -88,6 +89,14 @@ the permutations we are investigating. The 6 tells the function to only look at
 permutations in `B` up to length 6, while the 4 tells the function that it
 should only use patterns from `SG` up to length 4.
 
+Finally, to look at a particular basis in `bases`, do:
+
+```python
+show_me_basis(bases[0], dict_numbs_to_patts)
+```
+
+This will show you the two patterns of length 4 that describe the
+West-2-stack-sortable permutations.
 
 
 
