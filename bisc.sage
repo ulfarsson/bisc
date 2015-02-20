@@ -149,7 +149,7 @@ if val:
 	print '\n------------------------- Starting phase 6 -------------------------\n'
 	print 'Checking to see if subsets of the patterns found work as bases\n'
 
-	bases, dict_numbs_to_patts = clean_up( SG, min(SG.keys())+1, bm, min(SG.keys()), M, report, detailed_report, limit_monitors )
+	bases, dict_numbs_to_patts = clean_up(SG, B, min(SG.keys())+1, bm, min(SG.keys()), M, report, detailed_report, limit_monitors)
 
 	print '\nThe lengths of the bases that were found are'
 	print sorted(map(lambda x : len(x), bases))

@@ -1,4 +1,4 @@
-def clean_up(SG,perm_len_min,perm_len_max,patt_len_min,patt_len_max,report=False,detailed_report=False,limit_monitors=0):
+def clean_up(SG,B,perm_len_min,perm_len_max,patt_len_min,patt_len_max,report=False,detailed_report=False,limit_monitors=0):
     
     '''
     Note that if limit_monitors > 0 then we do not remove redundant monitors (last step)

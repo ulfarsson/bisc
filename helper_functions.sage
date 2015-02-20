@@ -128,7 +128,7 @@ def run_forb(ci, goodpatts, Mb, report=True, cpus=1):
 
     return SG
 
-def show_me(SG):
+def show_me(SG, more=False):
     '''
     To get info on the output do
 
@@ -136,10 +136,12 @@ def show_me(SG):
     '''
     describe_bisc_output(SG)
 
-    print '\nNow displaying the patterns\n'
-    dfo = display_forb_output(SG)
-    for mpat in dfo:
-        print show_mpat(mpat) + '\n'
+    if more:
+
+        print '\nNow displaying the patterns\n'
+        dfo = display_forb_output(SG)
+        for mpat in dfo:
+            print show_mpat(mpat) + '\n'
 
 def run_patterns_suffice(SG, L, D, stop_on_failure=False, parall=False, ncpus=0):
     '''
@@ -165,6 +167,12 @@ def run_patterns_suffice(SG, L, D, stop_on_failure=False, parall=False, ncpus=0)
     '''
     return patterns_suffice(SG, L, D, stop_on_failure, parall, ncpus)
 
-def run_clean_up(SG, bm, M, limit_monitors=0, report=True, detailed_report=False):
-    return clean_up(SG, min(SG.keys())+1, bm, min(SG.keys()), M, report, detailed_report, limit_monitors )
+def run_clean_up(SG, B, bm, M, limit_monitors=0, report=True, detailed_report=False):
+
+    bases, dict_numbs_to_patts = clean_up(SG, B, min(SG.keys())+1, bm, min(SG.keys()), M, report, detailed_report, limit_monitors )
+
+    print '\nThe bases found have lengths'
+    print map(lambda x : len(x), bases)
+
+    return bases, dict_numbs_to_patts
 
