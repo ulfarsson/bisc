@@ -15,7 +15,7 @@ repositories) you can run everything in
 create a new project. Click the New button and select `>_Terminal`. This will
 create a Command line terminal session. In this terminal session type
 
-```
+```sh
 git pull https://github.com/ulfarsson/pattern-avoidance.git
 git pull https://github.com/ulfarsson/permutation-sets.git
 git pull https://github.com/ulfarsson/bisc.git
