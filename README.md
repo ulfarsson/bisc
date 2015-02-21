@@ -21,11 +21,15 @@ git pull https://github.com/ulfarsson/permutation-sets.git
 git pull https://github.com/ulfarsson/bisc.git
 ```
 
-hitting Enter after each line. All you need to do now is navigate into the
-`bisc` folder (`cd bisc`), type `sage` and hit Enter.
+hitting Enter after each line. Now navigate into the
+`bisc` folder (`cd bisc`). You now have two options:
+1. Type `sage` and hit Enter. You are now working with Sage in the terminal.
+   Type `%runfile helper_functions.sage` to load all the neccessary files.
+2. If you do not like working in a terminal you can instead click the New button
+   and create a Sage Worksheet. In the first line type
+   `runfile('helper_functions.sage')` to load all the neccessary files.
 
-You have now started Sage. Type `%runfile helper_functions.sage` to load all the
-neccessary files.
+The rest of the tutorial works the same for option 1. and 2. above.
 
 ### Creating a permutation set to investigate
 
@@ -112,6 +116,3 @@ show_me_basis(bases[0], dict_numbs_to_patts)
 
 This will show you the two patterns of length 4 that describe the
 West-2-stack-sortable permutations.
-
-
-
