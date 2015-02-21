@@ -9,8 +9,23 @@ The code depends on [Sage](http://www.sagemath.org),
 it is assumed that the three repositories (`pattern-avoidance`,
 `permutation-sets` and `bisc`) are in the same folder.
 
-To get things started, navigate in a shell to the `bisc` repository and start
-up sage. Type `%runfile helper_functions.sage` to load all the neccessary files.
+If you do not want to install Sage on your computer (or the three necessary
+repositories) you can run everything in
+[SageMathCloud](https://cloud.sagemath.com). After creating your account,
+create a new project. Click the New button and select `>_Terminal`. This will
+create a Command line terminal session. In this terminal session type
+
+```
+git pull https://github.com/ulfarsson/pattern-avoidance.git
+git pull https://github.com/ulfarsson/permutation-sets.git
+git pull https://github.com/ulfarsson/bisc.git
+```
+
+hitting Enter after each line. All you need to do now is navigate into the
+`bisc` folder (`cd bisc`), type `sage` and hit Enter.
+
+You have now started Sage. Type `%runfile helper_functions.sage` to load all the
+neccessary files.
 
 ### Creating a permutation set to investigate
 
