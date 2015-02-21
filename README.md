@@ -23,6 +23,7 @@ git pull https://github.com/ulfarsson/bisc.git
 
 hitting Enter after each line. Now navigate into the
 `bisc` folder (`cd bisc`). You now have two options:
+
 1. Type `sage` and hit Enter. You are now working with Sage in the terminal.
    Type `%runfile helper_functions.sage` to load all the neccessary files.
 2. If you do not like working in a terminal you can instead click the New button
